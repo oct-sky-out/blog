@@ -1,0 +1,52 @@
+scalar DateTime
+    @specifiedBy(url: "https://scalars.graphql.org/andimarek/date-time.html")
+
+
+type Post {
+    id : String!
+    title: String!
+    content : String!
+    regDate : DateTime!
+    updateDate : DateTime
+    comments : [Comment]!
+    tags: [PostTag]
+}
+
+type PostTag {
+    id :String!
+    tag : Tag!
+}
+
+type Tag {
+    id :String!
+    tagName : String!
+    regDate : DateTime!
+    updateDate : DateTime
+}
+
+type Comment {
+    id: String!
+    commentText :String!
+    replyCommentId: String
+    user : User!
+    regDate : DateTime!
+    updateDate : DateTime
+}
+
+type User {
+    id :String!
+    email: String!
+    nickname :String!
+    regDate : DateTime!
+    updateDate : DateTime
+}
+
+schema {
+    query: Query
+}
+
+type Query {
+    findAllPosts: [Post]!
+}
+
+
