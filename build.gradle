@@ -2,6 +2,7 @@ plugins {
     id 'java'
     id 'org.springframework.boot' version '3.1.1'
     id 'io.spring.dependency-management' version '1.1.0'
+    id "org.sonarqube" version "4.2.1.3168"
 }
 
 group = 'com.octskyout'
@@ -49,4 +50,22 @@ dependencies {
 
 tasks.named('test') {
     useJUnitPlatform()
+}
+
+sonar {
+    properties {
+        property("sonar.projectKey", "sqp_b47218bc293172f0734a2d9a5a937ea367f94d32")
+        property("sonar.organization", "blog")
+        property("sonar.login", "admin")
+        property("sonar.password", "739tH-XyAbcBsKW")
+        property("sonar.host.url", "http://localhost:9000")
+    }
+}
+
+subprojects {
+    sonar {
+        properties {
+            property "sonar.sources", "src"
+        }
+    }
 }
