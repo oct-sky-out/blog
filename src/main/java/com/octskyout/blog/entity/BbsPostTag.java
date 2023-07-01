@@ -7,7 +7,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
-import java.time.LocalDateTime;
+import java.time.OffsetDateTime;
 import java.util.UUID;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -32,5 +32,5 @@ public class BbsPostTag {
     private BbsTag bbsTag;
 
     @Column(name = "reg_date", nullable = false)
-    private LocalDateTime regDate;
+    private OffsetDateTime regDate;
 }

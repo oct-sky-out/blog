@@ -1,44 +1,50 @@
 scalar DateTime
-    @specifiedBy(url: "https://scalars.graphql.org/andimarek/date-time.html")
+@specifiedBy(url: "https://scalars.graphql.org/andimarek/date-time.html")
 
+scalar UUID
 
-type Post {
-    id : String!
-    title: String!
-    content : String!
-    regDate : DateTime!
-    updateDate : DateTime
-    comments : [Comment]!
-    tags: [PostTag]
+type BbsComment {
+    bbsPost: BbsPost!
+    commentText: String!
+    id: UUID!
+    regDate: DateTime!
+    replyCommentId: UUID!
+    updateDate: DateTime
+    user: BbsUser!
 }
 
-type PostTag {
-    id :String!
-    tag : Tag!
+type BbsPostTag {
+    bbsPost: BbsPost!
+    bbsTag: BbsTag!
+    id: UUID!
+    regDate: DateTime!
 }
 
-type Tag {
-    id :String!
-    tagName : String!
-    regDate : DateTime!
-    updateDate : DateTime
+type BbsTag {
+    id: UUID!
+    regDate: DateTime!
+    tagName: String!
+    tags: [String]!
+    updateDate: DateTime
 }
 
-type Comment {
-    id: String!
-    commentText :String!
-    replyCommentId: String
-    user : User!
-    regDate : DateTime!
-    updateDate : DateTime
-}
-
-type User {
-    id :String!
+type BbsUser {
+    bbsBbsComments: [String]!
     email: String!
-    nickname :String!
-    regDate : DateTime!
-    updateDate : DateTime
+    id: UUID!
+    nickname: String!
+    regDate: DateTime!
+}
+
+type BbsPost {
+    bbsComments: [BbsComment]!
+    content: String!
+    id: UUID!
+    regDate: DateTime!
+    tags: [BbsPostTag]!
+    title: String!
+    updateDate: DateTime
+    user: BbsUser!
 }
 
 schema {
@@ -46,7 +52,5 @@ schema {
 }
 
 type Query {
-    findAllPosts: [Post]!
+    findAllPosts: [BbsPost]!
 }
-
-

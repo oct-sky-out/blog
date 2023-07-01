@@ -1,0 +1,12 @@
+POST http://localhost:8080/graphql
+Content-Type: application/json
+
+{
+  "query": "{ findAllPosts { id, title, content, regDate, bbsComments { id } } }"
+}
+
+###
+
+GET http://localhost:8080/actuator
+###
+GET http://localhost:8080/actuator/prometheus

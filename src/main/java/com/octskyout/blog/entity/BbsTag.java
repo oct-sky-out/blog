@@ -5,7 +5,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
-import java.time.LocalDateTime;
+import java.time.OffsetDateTime;
 import java.util.LinkedHashSet;
 import java.util.Set;
 import java.util.UUID;
@@ -27,10 +27,10 @@ public class BbsTag {
     private String tagName;
 
     @Column(name = "reg_date", nullable = false)
-    private LocalDateTime regDate;
+    private OffsetDateTime regDate;
 
     @Column(name = "update_date")
-    private LocalDateTime updateDate;
+    private OffsetDateTime updateDate;
 
     @OneToMany(mappedBy = "bbsTag")
     private Set<BbsPostTag> tags = new LinkedHashSet<>();

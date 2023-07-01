@@ -5,7 +5,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
-import java.time.LocalDateTime;
+import java.time.OffsetDateTime;
 import java.util.LinkedHashSet;
 import java.util.Set;
 import java.util.UUID;
@@ -30,8 +30,12 @@ public class BbsUser {
     private String nickname;
 
     @Column(name = "reg_date", nullable = false)
-    private LocalDateTime regDate;
+    private OffsetDateTime regDate;
+
+    @OneToMany(mappedBy = "user")
+    private Set<BbsPost> bbsPosts = new LinkedHashSet<>();
 
     @OneToMany(mappedBy = "user")
     private Set<BbsComment> bbsBbsComments = new LinkedHashSet<>();
+
 }

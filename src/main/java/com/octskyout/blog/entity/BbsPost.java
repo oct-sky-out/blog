@@ -2,10 +2,13 @@ package com.octskyout.blog.entity;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
-import java.time.LocalDateTime;
+import java.time.OffsetDateTime;
 import java.util.LinkedHashSet;
 import java.util.Set;
 import java.util.UUID;
@@ -30,10 +33,14 @@ public class BbsPost {
     private String content;
 
     @Column(name = "reg_date", nullable = false)
-    private LocalDateTime regDate;
+    private OffsetDateTime regDate;
 
     @Column(name = "update_date")
-    private LocalDateTime updateDate;
+    private OffsetDateTime updateDate;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "bbs_user_id")
+    private BbsUser user;
 
     @OneToMany(mappedBy = "bbsPost")
     private Set<BbsComment> bbsComments = new LinkedHashSet<>();
