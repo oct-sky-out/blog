@@ -1,6 +1,6 @@
 package com.octskyout.blog;
 
-import com.octskyout.config.R2dbcPostgreContainer;
+import com.octskyout.config.R2dbcPostgresqlContainer;
 import io.r2dbc.spi.ConnectionFactories;
 import io.r2dbc.spi.ConnectionFactory;
 import java.util.List;
@@ -16,11 +16,12 @@ import org.testcontainers.junit.jupiter.Testcontainers;
 import reactor.test.StepVerifier;
 
 @Testcontainers
-public class PostgreContainerSetting {
-    Logger log = LoggerFactory.getLogger(PostgreContainerSetting.class);
+class PostgresqlContainerSettingTest {
+    Logger log = LoggerFactory.getLogger(PostgresqlContainerSettingTest.class);
 
     @Container
-    private R2dbcPostgreContainer postgresqlContainer = new R2dbcPostgreContainer("postgres:15-bullseye")
+    private R2dbcPostgresqlContainer
+        postgresqlContainer = new R2dbcPostgresqlContainer("postgres:15-bullseye")
         .withUsername("root")
         .withPassword("password")
         .withDatabaseName("blog")
@@ -28,8 +29,7 @@ public class PostgreContainerSetting {
 
     @Test
     void test_connection() {
-        var connectionUrl = (postgresqlContainer.getR2dbcUrl())
-            .replace("jdbc", "r2dbc");
+        var connectionUrl = (postgresqlContainer.getR2dbcUrl());
         log.info("r2dbc url is {}", connectionUrl);
 
         ConnectionFactory connectionFactory =
@@ -43,7 +43,7 @@ public class PostgreContainerSetting {
             .build();
         var r2dbcTemplate = new R2dbcEntityTemplate(databaseClient, strategy);
 
-        r2dbcTemplate.getDatabaseClient().sql("SELECT 1;")
+        r2dbcTemplate.getDatabaseClient().sql("SELECT * from bbs_post;")
             .fetch()
             .first()
             .log()

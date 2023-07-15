@@ -2,12 +2,15 @@ package com.octskyout.config;
 
 import java.util.List;
 import org.testcontainers.containers.PostgreSQLContainer;
+import org.testcontainers.utility.MountableFile;
 
-public class R2dbcPostgreContainer<SELF extends R2dbcPostgreContainer<SELF>> extends PostgreSQLContainer<SELF> {
+public class R2dbcPostgresqlContainer<SELF extends R2dbcPostgresqlContainer<SELF>> extends PostgreSQLContainer<SELF> {
     private List<String> urlParams;
 
-    public R2dbcPostgreContainer(String dockerImageName) {
+    public R2dbcPostgresqlContainer(String dockerImageName) {
         super(dockerImageName);
+        super.withCopyFileToContainer(
+            MountableFile.forClasspathResource("schema.sql"), "/docker-entrypoint-initdb.d/init.sql");
     }
 
     public String getR2dbcUrl() {

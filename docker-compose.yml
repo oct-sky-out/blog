@@ -16,7 +16,7 @@ services:
       POSTGRES_PASSWORD: password
     volumes:
       - '~/postgres-docker/data:/var/lib/postgresql/data'
-      -
+
   influxdb:
     image: influxdb:1.8
     networks:
