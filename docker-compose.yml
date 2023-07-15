@@ -5,6 +5,18 @@ networks:
   grafana:
 
 services:
+  postgresql:
+    image: postgres:15-bullseye
+    container_name: postgres
+    restart: always
+    ports:
+      - '5432:5432'
+    environment:
+      POSTGRES_USER: root
+      POSTGRES_PASSWORD: password
+    volumes:
+      - '~/postgres-docker/data:/var/lib/postgresql/data'
+      -
   influxdb:
     image: influxdb:1.8
     networks:
